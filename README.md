@@ -1,0 +1,2 @@
+# GRNTWAS-Gene-Regulatory-Network-guided-Transcriptome-Wide-Association-Study-
+Here we present GRNTWAS, a framework that incorporates hierarchical gene regulatory networks (GRNs) to define a biologically constrained space for integrating trans-regulation in TWAS. By prioritizing upstream regulators on tissue-relevant regulatory networks and jointly modeling cis and network-mediated trans genetic components,
