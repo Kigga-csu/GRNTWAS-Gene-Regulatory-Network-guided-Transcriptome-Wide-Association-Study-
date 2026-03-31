@@ -1,0 +1,5 @@
+Notes
+
+This file describes the final Z-score calculation and post-processing used for GWAS association results. The workflow includes genomic control (inflation factor correction) and multiple-testing correction (e.g., BH FDR).
+
+For step-by-step usage, see README.md in this folder.
