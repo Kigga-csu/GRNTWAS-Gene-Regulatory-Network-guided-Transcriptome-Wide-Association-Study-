@@ -55,8 +55,9 @@ def extract_genotype_vcf(genofile_type="vcf", data_format="GT", bed_file=None,
                          geno_path=None, gene_ID=None, gene_exp_path=None,
                          sampleid_path=None, windows=5000):
     target_name, start, end, chrom = gene_info_4_id(bed_file, [gene_ID], windows)
+    chrom_str = str(chrom[0])
     try:
-        chrom_int = int(chrom[0])
+        chrom_int = int(chrom_str)
         if chrom_int not in range(1, 23):
             print(f"{target_name} does not have genotype data")
             return False, False
@@ -64,9 +65,9 @@ def extract_genotype_vcf(genofile_type="vcf", data_format="GT", bed_file=None,
         print(f"{target_name} does not have genotype data")
         return False, False
 
-    genofile_path = _resolve_vcf_path(geno_path, chrom[0])
+    genofile_path = _resolve_vcf_path(geno_path, chrom_str)
     ret = tg.sampleid_startup(
-        chrm=chrom[0],
+        chrm=chrom_str,
         genofile_type=genofile_type,
         data_format=data_format,
         geno_path=genofile_path,
@@ -358,12 +359,20 @@ def predictor4vcf_GRN_lasso(target_ID, genofile_path, sampleID4exp, target_Expr,
         out_weight['ES'] = beta
         out_weight.to_csv(out_weight_path + 'weight_GRN.csv', header=None, index=None, sep='\t', mode='a')
 
-    # Write info file
-    Info = pd.DataFrame([[
-        chrom, Weight_all['POS'].min(), Weight_all['POS'].max(), target_ID, target_name,
-        sample_size, n_snp, np.sum(beta != 0) if beta is not None else 0,
-        avg_r2_cv, Pvalue, Rsquared, 5, Alpha, Lambda, cvm, cvr2_threshold
-    ]])
+    # Write info file (align with GRN_COP_GSL)
+    n_effect_snp = int(np.sum(beta != 0)) if beta is not None else 0
+    Info = target_Expr[['CHROM', 'GeneStart', 'GeneEnd', 'TargetID', 'GeneName']].copy()
+    Info['sample_size'] = sample_size
+    Info['n_snp'] = n_snp
+    Info['n_effect_snp'] = n_effect_snp
+    Info['CVR2'] = avg_r2_cv
+    Info['TrainPVALUE'] = Pvalue if not np.isnan(Pvalue) else 'NaN'
+    Info['TrainR2'] = Rsquared if n_effect_snp else 0
+    Info['k-fold'] = 5
+    Info['alpha'] = Alpha
+    Info['Lambda'] = Lambda
+    Info['cvm'] = cvm
+    Info['CVR2_threshold'] = cvr2_threshold if cv_r2 else 0
     Info.to_csv(out_info_path + 'info_GRN.csv', header=None, index=None, sep='\t', mode='a')
 
     print('Target Elastic Net training completed.\n')

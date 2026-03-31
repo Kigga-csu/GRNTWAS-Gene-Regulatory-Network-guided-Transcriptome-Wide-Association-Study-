@@ -9,6 +9,8 @@ from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.metrics import make_scorer, mean_squared_error
 from scipy.stats import uniform, pearsonr
 import os
+import tempfile
+import tempfile
 import sys
 import subprocess
 
@@ -59,8 +61,9 @@ def run_dpr(Bimbam_df, Pheno_df, output_dir, target_id, dpr_path, method, es_typ
     print(cmd)
     try:
         subprocess.check_call(cmd, cwd=output_dir)
-    except subprocess.CalledProcessError:
-        print("错误：DPR 调用失败")
+    except (OSError, subprocess.CalledProcessError) as e:
+        print(f"警告：DPR 执行失败，将跳过 DPR 模型。原因: {e}")
+        return None
     finally:
         os.remove(bimbam_file)
         os.remove(pheno_file)
@@ -166,7 +169,7 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
 
         Pheno_df = pd.DataFrame(trainY, columns=['expression'])
 
-        dpr_output_dir = tmp_DPR
+        dpr_output_dir = tmp_DPR if tmp_DPR else tempfile.mkdtemp(prefix='grntwas_dpr_')
         os.makedirs(dpr_output_dir, exist_ok=True)
         os.makedirs(f"{dpr_output_dir}output", exist_ok=True)
         target_id = train.columns[-1]
@@ -323,7 +326,7 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
         sample_columns = [col for col in Bimbam_df.columns if col not in ['snpID', 'REF', 'ALT']]
         Bimbam_df = Bimbam_df[['snpID', 'REF', 'ALT'] + sample_columns]
         Pheno_df = pd.DataFrame(trainY, columns=['expression'])
-        dpr_output_dir = tmp_DPR
+        dpr_output_dir = tmp_DPR if tmp_DPR else tempfile.mkdtemp(prefix='grntwas_dpr_')
         os.makedirs(dpr_output_dir, exist_ok=True)
         os.makedirs(f"{dpr_output_dir}output", exist_ok=True)
         target_id = train.columns[-1]

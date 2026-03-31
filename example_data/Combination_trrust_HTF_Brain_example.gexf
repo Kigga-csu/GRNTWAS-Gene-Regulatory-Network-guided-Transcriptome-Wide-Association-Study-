@@ -2,278 +2,278 @@
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
   <graph mode="static" defaultedgetype="directed">
     <nodes>
-      <node id="0" label="SKI"/>
-      <node id="1" label="TP73"/>
-      <node id="2" label="ENO1"/>
-      <node id="3" label="CTNNBIP1"/>
-      <node id="4" label="PRDM2"/>
-      <node id="5" label="SPEN"/>
-      <node id="6" label="ZBTB17"/>
-      <node id="7" label="HNRNPR"/>
-      <node id="8" label="E2F2"/>
-      <node id="9" label="ID3"/>
-      <node id="10" label="RUNX3"/>
-      <node id="11" label="LIN28A"/>
-      <node id="12" label="ARID1A"/>
-      <node id="13" label="NR0B2"/>
-      <node id="14" label="KHDRBS1"/>
-      <node id="15" label="HDAC1"/>
-      <node id="16" label="SFPQ"/>
-      <node id="17" label="SNIP1"/>
-      <node id="18" label="MTF1"/>
-      <node id="19" label="TAL1"/>
-      <node id="20" label="JUN"/>
-      <node id="21" label="NFIA"/>
-      <node id="22" label="FOXD3"/>
-      <node id="23" label="FUBP1"/>
-      <node id="24" label="POU3F1"/>
-      <node id="25" label="HEYL"/>
-      <node id="26" label="NFYC"/>
-      <node id="27" label="YBX1"/>
-      <node id="28" label="DMAP1"/>
-      <node id="29" label="LMO4"/>
-      <node id="30" label="GTF2B"/>
-      <node id="31" label="GFI1"/>
-      <node id="32" label="DR1"/>
-      <node id="33" label="NHLH2"/>
-      <node id="34" label="TTF2"/>
-      <node id="35" label="PIAS3"/>
-      <node id="36" label="ARNT"/>
-      <node id="37" label="GABPB2"/>
-      <node id="38" label="RFX5"/>
-      <node id="39" label="RORC"/>
-      <node id="40" label="ILF2"/>
-      <node id="41" label="CREB3L4"/>
-      <node id="42" label="HAX1"/>
-      <node id="43" label="ASH1L"/>
-      <node id="44" label="MEF2D"/>
-      <node id="45" label="CRABP2"/>
-      <node id="46" label="HDGF"/>
-      <node id="47" label="ETV3"/>
-      <node id="48" label="IFI16"/>
-      <node id="49" label="OR4F5"/>
-      <node id="50" label="FO538757.3"/>
-      <node id="51" label="FO538757.2"/>
-      <node id="52" label="OR4F29"/>
-      <node id="53" label="OR4F16"/>
-      <node id="54" label="USF1"/>
+      <node id="SKI" label="SKI"/>
+      <node id="TP73" label="TP73"/>
+      <node id="ENO1" label="ENO1"/>
+      <node id="CTNNBIP1" label="CTNNBIP1"/>
+      <node id="PRDM2" label="PRDM2"/>
+      <node id="SPEN" label="SPEN"/>
+      <node id="ZBTB17" label="ZBTB17"/>
+      <node id="HNRNPR" label="HNRNPR"/>
+      <node id="E2F2" label="E2F2"/>
+      <node id="ID3" label="ID3"/>
+      <node id="RUNX3" label="RUNX3"/>
+      <node id="LIN28A" label="LIN28A"/>
+      <node id="ARID1A" label="ARID1A"/>
+      <node id="NR0B2" label="NR0B2"/>
+      <node id="KHDRBS1" label="KHDRBS1"/>
+      <node id="HDAC1" label="HDAC1"/>
+      <node id="SFPQ" label="SFPQ"/>
+      <node id="SNIP1" label="SNIP1"/>
+      <node id="MTF1" label="MTF1"/>
+      <node id="TAL1" label="TAL1"/>
+      <node id="JUN" label="JUN"/>
+      <node id="NFIA" label="NFIA"/>
+      <node id="FOXD3" label="FOXD3"/>
+      <node id="FUBP1" label="FUBP1"/>
+      <node id="POU3F1" label="POU3F1"/>
+      <node id="HEYL" label="HEYL"/>
+      <node id="NFYC" label="NFYC"/>
+      <node id="YBX1" label="YBX1"/>
+      <node id="DMAP1" label="DMAP1"/>
+      <node id="LMO4" label="LMO4"/>
+      <node id="GTF2B" label="GTF2B"/>
+      <node id="GFI1" label="GFI1"/>
+      <node id="DR1" label="DR1"/>
+      <node id="NHLH2" label="NHLH2"/>
+      <node id="TTF2" label="TTF2"/>
+      <node id="PIAS3" label="PIAS3"/>
+      <node id="ARNT" label="ARNT"/>
+      <node id="GABPB2" label="GABPB2"/>
+      <node id="RFX5" label="RFX5"/>
+      <node id="RORC" label="RORC"/>
+      <node id="ILF2" label="ILF2"/>
+      <node id="CREB3L4" label="CREB3L4"/>
+      <node id="HAX1" label="HAX1"/>
+      <node id="ASH1L" label="ASH1L"/>
+      <node id="MEF2D" label="MEF2D"/>
+      <node id="CRABP2" label="CRABP2"/>
+      <node id="HDGF" label="HDGF"/>
+      <node id="ETV3" label="ETV3"/>
+      <node id="IFI16" label="IFI16"/>
+      <node id="OR4F5" label="OR4F5"/>
+      <node id="FO538757.3" label="FO538757.3"/>
+      <node id="FO538757.2" label="FO538757.2"/>
+      <node id="OR4F29" label="OR4F29"/>
+      <node id="OR4F16" label="OR4F16"/>
+      <node id="USF1" label="USF1"/>
     </nodes>
     <edges>
-      <edge id="0" source="0" target="4"/>
-      <edge id="1" source="0" target="5"/>
-      <edge id="2" source="0" target="6"/>
-      <edge id="3" source="0" target="7"/>
-      <edge id="4" source="0" target="8"/>
-      <edge id="5" source="0" target="9"/>
-      <edge id="6" source="0" target="10"/>
-      <edge id="7" source="0" target="11"/>
-      <edge id="8" source="0" target="12"/>
-      <edge id="9" source="0" target="13"/>
-      <edge id="10" source="0" target="14"/>
-      <edge id="11" source="0" target="15"/>
-      <edge id="12" source="0" target="16"/>
-      <edge id="13" source="0" target="17"/>
-      <edge id="14" source="0" target="18"/>
-      <edge id="15" source="0" target="24"/>
-      <edge id="16" source="0" target="25"/>
-      <edge id="17" source="0" target="26"/>
-      <edge id="18" source="0" target="27"/>
-      <edge id="19" source="0" target="28"/>
-      <edge id="20" source="1" target="4"/>
-      <edge id="21" source="1" target="5"/>
-      <edge id="22" source="1" target="6"/>
-      <edge id="23" source="1" target="7"/>
-      <edge id="24" source="1" target="8"/>
-      <edge id="25" source="1" target="9"/>
-      <edge id="26" source="1" target="10"/>
-      <edge id="27" source="1" target="11"/>
-      <edge id="28" source="1" target="12"/>
-      <edge id="29" source="1" target="13"/>
-      <edge id="30" source="1" target="14"/>
-      <edge id="31" source="1" target="15"/>
-      <edge id="32" source="1" target="16"/>
-      <edge id="33" source="1" target="17"/>
-      <edge id="34" source="1" target="18"/>
-      <edge id="35" source="1" target="24"/>
-      <edge id="36" source="1" target="25"/>
-      <edge id="37" source="1" target="26"/>
-      <edge id="38" source="1" target="27"/>
-      <edge id="39" source="1" target="28"/>
-      <edge id="40" source="2" target="4"/>
-      <edge id="41" source="2" target="5"/>
-      <edge id="42" source="2" target="6"/>
-      <edge id="43" source="2" target="7"/>
-      <edge id="44" source="2" target="8"/>
-      <edge id="45" source="2" target="9"/>
-      <edge id="46" source="2" target="10"/>
-      <edge id="47" source="2" target="11"/>
-      <edge id="48" source="2" target="12"/>
-      <edge id="49" source="2" target="13"/>
-      <edge id="50" source="2" target="14"/>
-      <edge id="51" source="2" target="15"/>
-      <edge id="52" source="2" target="16"/>
-      <edge id="53" source="2" target="17"/>
-      <edge id="54" source="2" target="18"/>
-      <edge id="55" source="2" target="24"/>
-      <edge id="56" source="2" target="25"/>
-      <edge id="57" source="2" target="26"/>
-      <edge id="58" source="2" target="27"/>
-      <edge id="59" source="2" target="28"/>
-      <edge id="60" source="3" target="4"/>
-      <edge id="61" source="3" target="5"/>
-      <edge id="62" source="3" target="6"/>
-      <edge id="63" source="3" target="7"/>
-      <edge id="64" source="3" target="8"/>
-      <edge id="65" source="3" target="9"/>
-      <edge id="66" source="3" target="10"/>
-      <edge id="67" source="3" target="11"/>
-      <edge id="68" source="3" target="12"/>
-      <edge id="69" source="3" target="13"/>
-      <edge id="70" source="3" target="14"/>
-      <edge id="71" source="3" target="15"/>
-      <edge id="72" source="3" target="16"/>
-      <edge id="73" source="3" target="17"/>
-      <edge id="74" source="3" target="18"/>
-      <edge id="75" source="3" target="24"/>
-      <edge id="76" source="3" target="25"/>
-      <edge id="77" source="3" target="26"/>
-      <edge id="78" source="3" target="27"/>
-      <edge id="79" source="3" target="28"/>
-      <edge id="80" source="4" target="49"/>
-      <edge id="81" source="5" target="49"/>
-      <edge id="82" source="6" target="49"/>
-      <edge id="83" source="7" target="49"/>
-      <edge id="84" source="8" target="49"/>
-      <edge id="85" source="9" target="49"/>
-      <edge id="86" source="10" target="49"/>
-      <edge id="87" source="11" target="49"/>
-      <edge id="88" source="12" target="49"/>
-      <edge id="89" source="13" target="49"/>
-      <edge id="90" source="14" target="49"/>
-      <edge id="91" source="15" target="49"/>
-      <edge id="92" source="16" target="49"/>
-      <edge id="93" source="17" target="49"/>
-      <edge id="94" source="18" target="49"/>
-      <edge id="95" source="19" target="49"/>
-      <edge id="96" source="20" target="49"/>
-      <edge id="97" source="21" target="49"/>
-      <edge id="98" source="22" target="49"/>
-      <edge id="99" source="23" target="49"/>
-      <edge id="100" source="4" target="50"/>
-      <edge id="101" source="5" target="50"/>
-      <edge id="102" source="6" target="50"/>
-      <edge id="103" source="7" target="50"/>
-      <edge id="104" source="8" target="50"/>
-      <edge id="105" source="9" target="50"/>
-      <edge id="106" source="10" target="50"/>
-      <edge id="107" source="11" target="50"/>
-      <edge id="108" source="12" target="50"/>
-      <edge id="109" source="13" target="50"/>
-      <edge id="110" source="14" target="50"/>
-      <edge id="111" source="15" target="50"/>
-      <edge id="112" source="16" target="50"/>
-      <edge id="113" source="17" target="50"/>
-      <edge id="114" source="18" target="50"/>
-      <edge id="115" source="19" target="50"/>
-      <edge id="116" source="20" target="50"/>
-      <edge id="117" source="21" target="50"/>
-      <edge id="118" source="22" target="50"/>
-      <edge id="119" source="23" target="50"/>
-      <edge id="120" source="4" target="51"/>
-      <edge id="121" source="5" target="51"/>
-      <edge id="122" source="6" target="51"/>
-      <edge id="123" source="7" target="51"/>
-      <edge id="124" source="8" target="51"/>
-      <edge id="125" source="9" target="51"/>
-      <edge id="126" source="10" target="51"/>
-      <edge id="127" source="11" target="51"/>
-      <edge id="128" source="12" target="51"/>
-      <edge id="129" source="13" target="51"/>
-      <edge id="130" source="14" target="51"/>
-      <edge id="131" source="15" target="51"/>
-      <edge id="132" source="16" target="51"/>
-      <edge id="133" source="17" target="51"/>
-      <edge id="134" source="18" target="51"/>
-      <edge id="135" source="19" target="51"/>
-      <edge id="136" source="20" target="51"/>
-      <edge id="137" source="21" target="51"/>
-      <edge id="138" source="22" target="51"/>
-      <edge id="139" source="23" target="51"/>
-      <edge id="140" source="4" target="52"/>
-      <edge id="141" source="5" target="52"/>
-      <edge id="142" source="6" target="52"/>
-      <edge id="143" source="7" target="52"/>
-      <edge id="144" source="8" target="52"/>
-      <edge id="145" source="9" target="52"/>
-      <edge id="146" source="10" target="52"/>
-      <edge id="147" source="11" target="52"/>
-      <edge id="148" source="12" target="52"/>
-      <edge id="149" source="13" target="52"/>
-      <edge id="150" source="14" target="52"/>
-      <edge id="151" source="15" target="52"/>
-      <edge id="152" source="16" target="52"/>
-      <edge id="153" source="17" target="52"/>
-      <edge id="154" source="18" target="52"/>
-      <edge id="155" source="19" target="52"/>
-      <edge id="156" source="20" target="52"/>
-      <edge id="157" source="21" target="52"/>
-      <edge id="158" source="22" target="52"/>
-      <edge id="159" source="23" target="52"/>
-      <edge id="160" source="4" target="53"/>
-      <edge id="161" source="5" target="53"/>
-      <edge id="162" source="6" target="53"/>
-      <edge id="163" source="7" target="53"/>
-      <edge id="164" source="8" target="53"/>
-      <edge id="165" source="9" target="53"/>
-      <edge id="166" source="10" target="53"/>
-      <edge id="167" source="11" target="53"/>
-      <edge id="168" source="12" target="53"/>
-      <edge id="169" source="13" target="53"/>
-      <edge id="170" source="14" target="53"/>
-      <edge id="171" source="15" target="53"/>
-      <edge id="172" source="16" target="53"/>
-      <edge id="173" source="17" target="53"/>
-      <edge id="174" source="18" target="53"/>
-      <edge id="175" source="19" target="53"/>
-      <edge id="176" source="20" target="53"/>
-      <edge id="177" source="21" target="53"/>
-      <edge id="178" source="22" target="53"/>
-      <edge id="179" source="23" target="53"/>
-      <edge id="180" source="24" target="19"/>
-      <edge id="181" source="25" target="20"/>
-      <edge id="182" source="26" target="21"/>
-      <edge id="183" source="27" target="22"/>
-      <edge id="184" source="28" target="23"/>
-      <edge id="185" source="29" target="30"/>
-      <edge id="186" source="30" target="31"/>
-      <edge id="187" source="31" target="32"/>
-      <edge id="188" source="32" target="33"/>
-      <edge id="189" source="33" target="34"/>
-      <edge id="190" source="34" target="35"/>
-      <edge id="191" source="35" target="36"/>
-      <edge id="192" source="36" target="37"/>
-      <edge id="193" source="37" target="38"/>
-      <edge id="194" source="38" target="39"/>
-      <edge id="195" source="39" target="40"/>
-      <edge id="196" source="40" target="41"/>
-      <edge id="197" source="41" target="42"/>
-      <edge id="198" source="42" target="43"/>
-      <edge id="199" source="43" target="44"/>
-      <edge id="200" source="44" target="45"/>
-      <edge id="201" source="45" target="46"/>
-      <edge id="202" source="46" target="47"/>
-      <edge id="203" source="47" target="48"/>
-      <edge id="204" source="48" target="54"/>
-      <edge id="205" source="0" target="29"/>
-      <edge id="206" source="0" target="30"/>
-      <edge id="207" source="0" target="31"/>
-      <edge id="208" source="0" target="32"/>
-      <edge id="209" source="0" target="33"/>
-      <edge id="210" source="0" target="34"/>
-      <edge id="211" source="0" target="35"/>
-      <edge id="212" source="0" target="36"/>
-      <edge id="213" source="0" target="37"/>
-      <edge id="214" source="0" target="38"/>
+      <edge id="0" source="SKI" target="PRDM2"/>
+      <edge id="1" source="SKI" target="SPEN"/>
+      <edge id="2" source="SKI" target="ZBTB17"/>
+      <edge id="3" source="SKI" target="HNRNPR"/>
+      <edge id="4" source="SKI" target="E2F2"/>
+      <edge id="5" source="SKI" target="ID3"/>
+      <edge id="6" source="SKI" target="RUNX3"/>
+      <edge id="7" source="SKI" target="LIN28A"/>
+      <edge id="8" source="SKI" target="ARID1A"/>
+      <edge id="9" source="SKI" target="NR0B2"/>
+      <edge id="10" source="SKI" target="KHDRBS1"/>
+      <edge id="11" source="SKI" target="HDAC1"/>
+      <edge id="12" source="SKI" target="SFPQ"/>
+      <edge id="13" source="SKI" target="SNIP1"/>
+      <edge id="14" source="SKI" target="MTF1"/>
+      <edge id="15" source="SKI" target="POU3F1"/>
+      <edge id="16" source="SKI" target="HEYL"/>
+      <edge id="17" source="SKI" target="NFYC"/>
+      <edge id="18" source="SKI" target="YBX1"/>
+      <edge id="19" source="SKI" target="DMAP1"/>
+      <edge id="20" source="TP73" target="PRDM2"/>
+      <edge id="21" source="TP73" target="SPEN"/>
+      <edge id="22" source="TP73" target="ZBTB17"/>
+      <edge id="23" source="TP73" target="HNRNPR"/>
+      <edge id="24" source="TP73" target="E2F2"/>
+      <edge id="25" source="TP73" target="ID3"/>
+      <edge id="26" source="TP73" target="RUNX3"/>
+      <edge id="27" source="TP73" target="LIN28A"/>
+      <edge id="28" source="TP73" target="ARID1A"/>
+      <edge id="29" source="TP73" target="NR0B2"/>
+      <edge id="30" source="TP73" target="KHDRBS1"/>
+      <edge id="31" source="TP73" target="HDAC1"/>
+      <edge id="32" source="TP73" target="SFPQ"/>
+      <edge id="33" source="TP73" target="SNIP1"/>
+      <edge id="34" source="TP73" target="MTF1"/>
+      <edge id="35" source="TP73" target="POU3F1"/>
+      <edge id="36" source="TP73" target="HEYL"/>
+      <edge id="37" source="TP73" target="NFYC"/>
+      <edge id="38" source="TP73" target="YBX1"/>
+      <edge id="39" source="TP73" target="DMAP1"/>
+      <edge id="40" source="ENO1" target="PRDM2"/>
+      <edge id="41" source="ENO1" target="SPEN"/>
+      <edge id="42" source="ENO1" target="ZBTB17"/>
+      <edge id="43" source="ENO1" target="HNRNPR"/>
+      <edge id="44" source="ENO1" target="E2F2"/>
+      <edge id="45" source="ENO1" target="ID3"/>
+      <edge id="46" source="ENO1" target="RUNX3"/>
+      <edge id="47" source="ENO1" target="LIN28A"/>
+      <edge id="48" source="ENO1" target="ARID1A"/>
+      <edge id="49" source="ENO1" target="NR0B2"/>
+      <edge id="50" source="ENO1" target="KHDRBS1"/>
+      <edge id="51" source="ENO1" target="HDAC1"/>
+      <edge id="52" source="ENO1" target="SFPQ"/>
+      <edge id="53" source="ENO1" target="SNIP1"/>
+      <edge id="54" source="ENO1" target="MTF1"/>
+      <edge id="55" source="ENO1" target="POU3F1"/>
+      <edge id="56" source="ENO1" target="HEYL"/>
+      <edge id="57" source="ENO1" target="NFYC"/>
+      <edge id="58" source="ENO1" target="YBX1"/>
+      <edge id="59" source="ENO1" target="DMAP1"/>
+      <edge id="60" source="CTNNBIP1" target="PRDM2"/>
+      <edge id="61" source="CTNNBIP1" target="SPEN"/>
+      <edge id="62" source="CTNNBIP1" target="ZBTB17"/>
+      <edge id="63" source="CTNNBIP1" target="HNRNPR"/>
+      <edge id="64" source="CTNNBIP1" target="E2F2"/>
+      <edge id="65" source="CTNNBIP1" target="ID3"/>
+      <edge id="66" source="CTNNBIP1" target="RUNX3"/>
+      <edge id="67" source="CTNNBIP1" target="LIN28A"/>
+      <edge id="68" source="CTNNBIP1" target="ARID1A"/>
+      <edge id="69" source="CTNNBIP1" target="NR0B2"/>
+      <edge id="70" source="CTNNBIP1" target="KHDRBS1"/>
+      <edge id="71" source="CTNNBIP1" target="HDAC1"/>
+      <edge id="72" source="CTNNBIP1" target="SFPQ"/>
+      <edge id="73" source="CTNNBIP1" target="SNIP1"/>
+      <edge id="74" source="CTNNBIP1" target="MTF1"/>
+      <edge id="75" source="CTNNBIP1" target="POU3F1"/>
+      <edge id="76" source="CTNNBIP1" target="HEYL"/>
+      <edge id="77" source="CTNNBIP1" target="NFYC"/>
+      <edge id="78" source="CTNNBIP1" target="YBX1"/>
+      <edge id="79" source="CTNNBIP1" target="DMAP1"/>
+      <edge id="80" source="PRDM2" target="OR4F5"/>
+      <edge id="81" source="SPEN" target="OR4F5"/>
+      <edge id="82" source="ZBTB17" target="OR4F5"/>
+      <edge id="83" source="HNRNPR" target="OR4F5"/>
+      <edge id="84" source="E2F2" target="OR4F5"/>
+      <edge id="85" source="ID3" target="OR4F5"/>
+      <edge id="86" source="RUNX3" target="OR4F5"/>
+      <edge id="87" source="LIN28A" target="OR4F5"/>
+      <edge id="88" source="ARID1A" target="OR4F5"/>
+      <edge id="89" source="NR0B2" target="OR4F5"/>
+      <edge id="90" source="KHDRBS1" target="OR4F5"/>
+      <edge id="91" source="HDAC1" target="OR4F5"/>
+      <edge id="92" source="SFPQ" target="OR4F5"/>
+      <edge id="93" source="SNIP1" target="OR4F5"/>
+      <edge id="94" source="MTF1" target="OR4F5"/>
+      <edge id="95" source="TAL1" target="OR4F5"/>
+      <edge id="96" source="JUN" target="OR4F5"/>
+      <edge id="97" source="NFIA" target="OR4F5"/>
+      <edge id="98" source="FOXD3" target="OR4F5"/>
+      <edge id="99" source="FUBP1" target="OR4F5"/>
+      <edge id="100" source="PRDM2" target="FO538757.3"/>
+      <edge id="101" source="SPEN" target="FO538757.3"/>
+      <edge id="102" source="ZBTB17" target="FO538757.3"/>
+      <edge id="103" source="HNRNPR" target="FO538757.3"/>
+      <edge id="104" source="E2F2" target="FO538757.3"/>
+      <edge id="105" source="ID3" target="FO538757.3"/>
+      <edge id="106" source="RUNX3" target="FO538757.3"/>
+      <edge id="107" source="LIN28A" target="FO538757.3"/>
+      <edge id="108" source="ARID1A" target="FO538757.3"/>
+      <edge id="109" source="NR0B2" target="FO538757.3"/>
+      <edge id="110" source="KHDRBS1" target="FO538757.3"/>
+      <edge id="111" source="HDAC1" target="FO538757.3"/>
+      <edge id="112" source="SFPQ" target="FO538757.3"/>
+      <edge id="113" source="SNIP1" target="FO538757.3"/>
+      <edge id="114" source="MTF1" target="FO538757.3"/>
+      <edge id="115" source="TAL1" target="FO538757.3"/>
+      <edge id="116" source="JUN" target="FO538757.3"/>
+      <edge id="117" source="NFIA" target="FO538757.3"/>
+      <edge id="118" source="FOXD3" target="FO538757.3"/>
+      <edge id="119" source="FUBP1" target="FO538757.3"/>
+      <edge id="120" source="PRDM2" target="FO538757.2"/>
+      <edge id="121" source="SPEN" target="FO538757.2"/>
+      <edge id="122" source="ZBTB17" target="FO538757.2"/>
+      <edge id="123" source="HNRNPR" target="FO538757.2"/>
+      <edge id="124" source="E2F2" target="FO538757.2"/>
+      <edge id="125" source="ID3" target="FO538757.2"/>
+      <edge id="126" source="RUNX3" target="FO538757.2"/>
+      <edge id="127" source="LIN28A" target="FO538757.2"/>
+      <edge id="128" source="ARID1A" target="FO538757.2"/>
+      <edge id="129" source="NR0B2" target="FO538757.2"/>
+      <edge id="130" source="KHDRBS1" target="FO538757.2"/>
+      <edge id="131" source="HDAC1" target="FO538757.2"/>
+      <edge id="132" source="SFPQ" target="FO538757.2"/>
+      <edge id="133" source="SNIP1" target="FO538757.2"/>
+      <edge id="134" source="MTF1" target="FO538757.2"/>
+      <edge id="135" source="TAL1" target="FO538757.2"/>
+      <edge id="136" source="JUN" target="FO538757.2"/>
+      <edge id="137" source="NFIA" target="FO538757.2"/>
+      <edge id="138" source="FOXD3" target="FO538757.2"/>
+      <edge id="139" source="FUBP1" target="FO538757.2"/>
+      <edge id="140" source="PRDM2" target="OR4F29"/>
+      <edge id="141" source="SPEN" target="OR4F29"/>
+      <edge id="142" source="ZBTB17" target="OR4F29"/>
+      <edge id="143" source="HNRNPR" target="OR4F29"/>
+      <edge id="144" source="E2F2" target="OR4F29"/>
+      <edge id="145" source="ID3" target="OR4F29"/>
+      <edge id="146" source="RUNX3" target="OR4F29"/>
+      <edge id="147" source="LIN28A" target="OR4F29"/>
+      <edge id="148" source="ARID1A" target="OR4F29"/>
+      <edge id="149" source="NR0B2" target="OR4F29"/>
+      <edge id="150" source="KHDRBS1" target="OR4F29"/>
+      <edge id="151" source="HDAC1" target="OR4F29"/>
+      <edge id="152" source="SFPQ" target="OR4F29"/>
+      <edge id="153" source="SNIP1" target="OR4F29"/>
+      <edge id="154" source="MTF1" target="OR4F29"/>
+      <edge id="155" source="TAL1" target="OR4F29"/>
+      <edge id="156" source="JUN" target="OR4F29"/>
+      <edge id="157" source="NFIA" target="OR4F29"/>
+      <edge id="158" source="FOXD3" target="OR4F29"/>
+      <edge id="159" source="FUBP1" target="OR4F29"/>
+      <edge id="160" source="PRDM2" target="OR4F16"/>
+      <edge id="161" source="SPEN" target="OR4F16"/>
+      <edge id="162" source="ZBTB17" target="OR4F16"/>
+      <edge id="163" source="HNRNPR" target="OR4F16"/>
+      <edge id="164" source="E2F2" target="OR4F16"/>
+      <edge id="165" source="ID3" target="OR4F16"/>
+      <edge id="166" source="RUNX3" target="OR4F16"/>
+      <edge id="167" source="LIN28A" target="OR4F16"/>
+      <edge id="168" source="ARID1A" target="OR4F16"/>
+      <edge id="169" source="NR0B2" target="OR4F16"/>
+      <edge id="170" source="KHDRBS1" target="OR4F16"/>
+      <edge id="171" source="HDAC1" target="OR4F16"/>
+      <edge id="172" source="SFPQ" target="OR4F16"/>
+      <edge id="173" source="SNIP1" target="OR4F16"/>
+      <edge id="174" source="MTF1" target="OR4F16"/>
+      <edge id="175" source="TAL1" target="OR4F16"/>
+      <edge id="176" source="JUN" target="OR4F16"/>
+      <edge id="177" source="NFIA" target="OR4F16"/>
+      <edge id="178" source="FOXD3" target="OR4F16"/>
+      <edge id="179" source="FUBP1" target="OR4F16"/>
+      <edge id="180" source="POU3F1" target="TAL1"/>
+      <edge id="181" source="HEYL" target="JUN"/>
+      <edge id="182" source="NFYC" target="NFIA"/>
+      <edge id="183" source="YBX1" target="FOXD3"/>
+      <edge id="184" source="DMAP1" target="FUBP1"/>
+      <edge id="185" source="LMO4" target="GTF2B"/>
+      <edge id="186" source="GTF2B" target="GFI1"/>
+      <edge id="187" source="GFI1" target="DR1"/>
+      <edge id="188" source="DR1" target="NHLH2"/>
+      <edge id="189" source="NHLH2" target="TTF2"/>
+      <edge id="190" source="TTF2" target="PIAS3"/>
+      <edge id="191" source="PIAS3" target="ARNT"/>
+      <edge id="192" source="ARNT" target="GABPB2"/>
+      <edge id="193" source="GABPB2" target="RFX5"/>
+      <edge id="194" source="RFX5" target="RORC"/>
+      <edge id="195" source="RORC" target="ILF2"/>
+      <edge id="196" source="ILF2" target="CREB3L4"/>
+      <edge id="197" source="CREB3L4" target="HAX1"/>
+      <edge id="198" source="HAX1" target="ASH1L"/>
+      <edge id="199" source="ASH1L" target="MEF2D"/>
+      <edge id="200" source="MEF2D" target="CRABP2"/>
+      <edge id="201" source="CRABP2" target="HDGF"/>
+      <edge id="202" source="HDGF" target="ETV3"/>
+      <edge id="203" source="ETV3" target="IFI16"/>
+      <edge id="204" source="IFI16" target="USF1"/>
+      <edge id="205" source="SKI" target="LMO4"/>
+      <edge id="206" source="SKI" target="GTF2B"/>
+      <edge id="207" source="SKI" target="GFI1"/>
+      <edge id="208" source="SKI" target="DR1"/>
+      <edge id="209" source="SKI" target="NHLH2"/>
+      <edge id="210" source="SKI" target="TTF2"/>
+      <edge id="211" source="SKI" target="PIAS3"/>
+      <edge id="212" source="SKI" target="ARNT"/>
+      <edge id="213" source="SKI" target="GABPB2"/>
+      <edge id="214" source="SKI" target="RFX5"/>
     </edges>
   </graph>
 </gexf>
