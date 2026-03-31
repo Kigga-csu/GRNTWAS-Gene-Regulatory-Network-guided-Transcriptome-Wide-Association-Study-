@@ -1,2 +1,17 @@
-# GRNTWAS-Gene-Regulatory-Network-guided-Transcriptome-Wide-Association-Study-
-Here we present GRNTWAS, a framework that incorporates hierarchical gene regulatory networks (GRNs) to define a biologically constrained space for integrating trans-regulation in TWAS. By prioritizing upstream regulators on tissue-relevant regulatory networks and jointly modeling cis and network-mediated trans genetic components,
+# GRNTWAS
+
+Gene Regulatory Network-guided Transcriptome-Wide Association Study (TWAS) training pipeline.
+
+## Overview
+GRNTWAS integrates GRN topology with eQTL filtering to train gene expression predictors. It supports graph-guided TF selection and multiple regression models.
+
+## Contents
+- `code/`: core pipeline and models
+- `example_data/`: synthetic, public-safe demo dataset
+- `data/`: private/raw data (excluded from git)
+
+## Quick Start
+See `code/README.md` for setup, inputs, and usage.
+
+## License
+See `LICENSE`.

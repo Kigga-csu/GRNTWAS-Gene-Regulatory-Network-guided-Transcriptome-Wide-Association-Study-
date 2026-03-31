@@ -28,25 +28,9 @@ def sparse_group_lasso_Qualified(groups, train_geno_exp, test_geno_exp):
     return compare_lasso_enet_cv(groups, train_geno_exp, test_geno_exp)
 
 
-# 调用 DPR 的函数
 def run_dpr(Bimbam_df, Pheno_df, output_dir, target_id, dpr_path, method, es_type):
-    """
-    调用 DPR 模型并读取结果。
-
-    参数:
-    - Bimbam_df: BIMBAM 格式的基因型数据
-    - Pheno_df: 表型数据
-    - output_dir: 输出目录
-    - target_id: 目标 ID
-    - dpr_path: DPR 可执行文件路径
-    - method: DPR 方法参数
-    - es_type: 效应大小类型
-
-    返回:
-    - dpr_result: DPR 输出结果 DataFrame
-    """
     if not dpr_path or (not os.path.exists(dpr_path)):
-        print(f"警告：未找到 DPR 可执行文件：{dpr_path}")
+        print(f"： DPR ：{dpr_path}")
         return None
 
     bimbam_file = f"{output_dir}{target_id}.bimbam"
@@ -62,13 +46,13 @@ def run_dpr(Bimbam_df, Pheno_df, output_dir, target_id, dpr_path, method, es_typ
     try:
         subprocess.check_call(cmd, cwd=output_dir)
     except (OSError, subprocess.CalledProcessError) as e:
-        print(f"警告：DPR 执行失败，将跳过 DPR 模型。原因: {e}")
+        print(f"：DPR ， DPR 。: {e}")
         return None
     finally:
         os.remove(bimbam_file)
         os.remove(pheno_file)
 
-    print("esx")  # 确保这个语句会执行
+    print("esx")  # 
 
     if os.path.exists(output_prefix):
         dpr_result = pd.read_csv(output_prefix,
@@ -87,14 +71,13 @@ def run_dpr(Bimbam_df, Pheno_df, output_dir, target_id, dpr_path, method, es_typ
         return DPR_Out
 
     else:
-        print(f"错误：DPR 输出文件 {output_prefix} 不存在")
+        print(f"：DPR  {output_prefix} ")
         return None
 
 
 def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_meta=None, dpr_path=None, dpr_method='1',
                           es_type='fixed', tmp_DPR=None, used_model=None):
 
-    # 数据准备
     trainX = train.iloc[:, :-1]
     trainY = train.iloc[:, -1].values
     if test is not None:
@@ -104,7 +87,6 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
         testX = trainX
         testY = trainY
 
-    # 如果提供分组信息，使用 GroupLasso 筛选特征
     if groups is not None:
         gl = GroupLasso(
             groups=groups, l1_reg=0, group_reg=0.1, scale_reg="inverse_group_size",
@@ -117,7 +99,7 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
     else:
         selected_features = trainX.columns.tolist()
     if not selected_features:
-        print("警告：Group Lasso 没有选择任何特征。使用所有特征进行后续训练。")
+        print("：Group Lasso 。。")
         selected_features = trainX.columns.tolist()
 
     # LassoCV
@@ -125,12 +107,12 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
         cv=k, n_jobs=max(1, int(0.7 * os.cpu_count())), random_state=random_state,
         fit_intercept=True, alphas=np.array([0.0001, 0.001, 0.01, 0.05, 0.1, 0.15, 0.3, 0.5])
     )
-    print("开始训练 LassoCV 模型...")
+    print(" LassoCV ...")
     lasso_cv_model.fit(trainX[selected_features].values, trainY)
     lasso_predY = lasso_cv_model.predict(testX[selected_features].values)
     lasso_lm = sm.OLS(testY, sm.add_constant(lasso_predY)).fit()
     lasso_Rsquared = lasso_lm.rsquared
-    print("LassoCV 模型训练完成。")
+    print("LassoCV 。")
 
     # ElasticNetCV
     enet_cv_model = ElasticNetCV(
@@ -138,12 +120,12 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
         alphas=np.array([0.0001, 0.001, 0.01, 0.05, 0.15]), selection='random',
         cv=k, n_jobs=max(1, int(0.7 * os.cpu_count())), random_state=random_state
     )
-    print("开始训练 ElasticNetCV 模型...")
+    print(" ElasticNetCV ...")
     enet_cv_model.fit(trainX[selected_features].values, trainY)
     enet_predY = enet_cv_model.predict(testX[selected_features].values)
     enet_lm = sm.OLS(testY, sm.add_constant(enet_predY)).fit()
     enet_Rsquared = enet_lm.rsquared
-    print("ElasticNetCV 模型训练完成。")
+    print("ElasticNetCV 。")
 
     # DPR
     Rsquared_dpr = -np.inf
@@ -151,19 +133,15 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
     lm_dpr = None
     weights_dpr = None
     if dpr_path is not None and Geno_meta is not None:
-        print("开始训练 DPR 模型...")
+        print(" DPR ...")
         selected_snps = selected_features
-        # 提取 Geno_meta 中与 selected_snps 匹配的元信息
         meta_info = Geno_meta[Geno_meta['snpID'].isin(selected_snps)][['snpID', 'REF', 'ALT']].copy()
 
-        # 转置 trainX[selected_snps]，使 SNP ID 成为行索引
         geno_data = trainX[selected_snps].T
         geno_data.index.name = 'snpID'
 
-        # 按 'snpID' 合并元信息和基因型数据
         Bimbam_df = meta_info.merge(geno_data, left_on='snpID', right_index=True)
 
-        # 调整列顺序：'snpID', 'REF', 'ALT' 后跟样本列
         sample_columns = [col for col in Bimbam_df.columns if col not in ['snpID', 'REF', 'ALT']]
         Bimbam_df = Bimbam_df[['snpID', 'REF', 'ALT'] + sample_columns]
 
@@ -183,18 +161,17 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
                 lm_dpr = sm.OLS(testY, sm.add_constant(predY_dpr)).fit()
                 Rsquared_dpr = lm_dpr.rsquared
             else:
-                print("警告：DPR 输出与测试集 SNP 不匹配")
+                print("：DPR  SNP ")
         else:
-            print("警告：DPR 调用失败")
-        print("DPR 模型训练完成。")
-    # 记录每个模型的信息
+            print("：DPR ")
+        print("DPR 。")
     models = {
         "LassoCV": {
             "Rsquared": lasso_Rsquared,
             "predY": lasso_predY,
             "model": lasso_cv_model,
             "lm": lasso_lm,
-            "Alpha": None,  # LassoCV 无 l1_ratio
+            "Alpha": None,  # LassoCV  l1_ratio
             "Lambda": lasso_cv_model.alpha_,
             "cvm": np.min(lasso_cv_model.mse_path_),
             "beta": lasso_cv_model.coef_
@@ -212,24 +189,22 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
         "DPR": {
             "Rsquared": Rsquared_dpr,
             "predY": predY_dpr,
-            "model": None,  # DPR 无模型对象
+            "model": None,  # DPR 
             "lm": lm_dpr,
             "Alpha": None,
             "Lambda": None,
             "cvm": None,
-            "beta": weights_dpr  # DPR 的权重
+            "beta": weights_dpr  # DPR 
         }
     }
-    # 选择 R² 最高的模型
     if used_model:
         best_model_name = used_model
     else:
         best_model_name = max(models, key=lambda x: models[x]["Rsquared"])
 
     best_info = models[best_model_name]
-    print(f"最佳模型: {best_model_name}, R² = {best_info['Rsquared']}")
+    print(f": {best_model_name}, R² = {best_info['Rsquared']}")
 
-    # 根据 test 是否为 None 返回结果
     if test is not None:
         return best_info["Rsquared"], best_model_name
     else:
@@ -240,16 +215,13 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
         Lambda = best_info["Lambda"]
         cvm = best_info["cvm"]
 
-        # 初始化 beta，长度与 trainX 特征数一致
         beta = np.zeros(trainX.shape[1])
-        if isinstance(beta_model, pd.Series):  # DPR 的情况
-            # 将 weights_dpr 的值映射到 beta 中
+        if isinstance(beta_model, pd.Series):  # DPR 
             for snp in beta_model.index:
                 if snp in selected_features:
                     feature_index = trainX.columns.get_loc(snp)
                     beta[feature_index] = beta_model[snp]
-        else:  # LassoCV 或 ElasticNetCV 的情况
-            # 将 beta_model 的值映射到 selected_features 对应的位置
+        else:  # LassoCV  ElasticNetCV 
             for i, feature_name in enumerate(selected_features):
 
                 feature_index = trainX.columns.get_loc(feature_name)
@@ -260,7 +232,6 @@ def compare_lasso_enet_cv(groups, train, test=None, k=5, random_state=42, Geno_m
 
 def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42, Geno_meta=None, dpr_path=None, dpr_method='1',
                           es_type='fixed', tmp_DPR=None, used_model=None):
-    # 数据准备
     trainX = train.iloc[:, :-1]
     trainY = train.iloc[:, -1].values
     if test is not None:
@@ -270,7 +241,6 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
         testX = trainX
         testY = trainY
 
-    # 如果提供分组信息，使用 GroupLasso 筛选特征
     if groups is not None:
         gl = GroupLasso(
             groups=groups, l1_reg=0, group_reg=0.1, scale_reg="inverse_group_size",
@@ -283,7 +253,7 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
     else:
         selected_features = trainX.columns.tolist()
     if not selected_features:
-        print("警告：Group Lasso 没有选择任何特征。使用所有特征进行后续训练。")
+        print("：Group Lasso 。。")
         selected_features = trainX.columns.tolist()
 
     # LassoCV
@@ -291,12 +261,12 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
         cv=k, n_jobs=max(1, int(0.7 * os.cpu_count())), random_state=random_state,
         fit_intercept=True, alphas=np.array([0.0001, 0.001, 0.01, 0.05, 0.1, 0.15, 0.3, 0.5])
     )
-    print("开始训练 LassoCV 模型...")
+    print(" LassoCV ...")
     lasso_cv_model.fit(trainX[selected_features].values, trainY)
     lasso_predY = lasso_cv_model.predict(testX[selected_features].values)
     lasso_lm = sm.OLS(testY, sm.add_constant(lasso_predY)).fit()
     lasso_Rsquared = lasso_lm.rsquared
-    print("LassoCV 模型训练完成。")
+    print("LassoCV 。")
 
     # ElasticNetCV
     enet_cv_model = ElasticNetCV(
@@ -304,12 +274,12 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
         alphas=np.array([0.0001, 0.001, 0.01, 0.05, 0.15]), selection='random',
         cv=k, n_jobs=max(1, int(0.7 * os.cpu_count())), random_state=random_state
     )
-    print("开始训练 ElasticNetCV 模型...")
+    print(" ElasticNetCV ...")
     enet_cv_model.fit(trainX[selected_features].values, trainY)
     enet_predY = enet_cv_model.predict(testX[selected_features].values)
     enet_lm = sm.OLS(testY, sm.add_constant(enet_predY)).fit()
     enet_Rsquared = enet_lm.rsquared
-    print("ElasticNetCV 模型训练完成。")
+    print("ElasticNetCV 。")
 
     # DPR
     Rsquared_dpr = -np.inf
@@ -317,7 +287,7 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
     lm_dpr = None
     weights_dpr = None
     if dpr_path is not None and Geno_meta is not None:
-        print("开始训练 DPR 模型...")
+        print(" DPR ...")
         selected_snps = selected_features
         meta_info = Geno_meta[Geno_meta['snpID'].isin(selected_snps)][['snpID', 'REF', 'ALT']].copy()
         geno_data = trainX[selected_snps].T
@@ -340,12 +310,11 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
                 lm_dpr = sm.OLS(testY, sm.add_constant(predY_dpr)).fit()
                 Rsquared_dpr = lm_dpr.rsquared
             else:
-                print("警告：DPR 输出与测试集 SNP 不匹配")
+                print("：DPR  SNP ")
         else:
-            print("警告：DPR 调用失败")
-        print("DPR 模型训练完成。")
+            print("：DPR ")
+        print("DPR 。")
 
-    # 记录每个模型的信息
     models = {
         "LassoCV": {
             "Rsquared": lasso_Rsquared,
@@ -379,32 +348,26 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
         }
     }
 
-    # 选择最佳模型
     if used_model:
         best_model_name = used_model
     else:
         best_model_name = max(models, key=lambda x: models[x]["Rsquared"])
 
     best_info = models[best_model_name]
-    print(f"最佳模型: {best_model_name}, R² = {best_info['Rsquared']}")
+    print(f": {best_model_name}, R² = {best_info['Rsquared']}")
 
-    # 检查 beta_model 是否为 None
     beta_model = best_info["beta"]
     if beta_model is None:
-        # 写入 error.txt
         error_file = "/data/lab/wangshixian/GRNTWAS_STAR/GRNTWAS2mayo-ad/vcf_project/result_eqtl_5k_TF_filter/error.txt"
         with open(error_file, "a") as f:
             f.write(train.columns[-1] + "\n")
 
-        # 先尝试使用 DPR
         best_info = models["DPR"]
         beta_model = best_info["beta"]
         if beta_model is None:
-            # 如果 DPR 的 beta 也为 None，则使用 ElasticNetCV
             best_info = models["ElasticNetCV"]
             beta_model = best_info["beta"]
 
-    # 根据 test 是否为 None 返回结果
     if test is not None:
         return best_info["Rsquared"], best_model_name
     else:
@@ -414,14 +377,13 @@ def compare_lasso_enet_cv_revise(groups, train, test=None, k=5, random_state=42,
         Lambda = best_info["Lambda"]
         cvm = best_info["cvm"]
 
-        # 初始化 beta，长度与 trainX 特征数一致
         beta = np.zeros(trainX.shape[1])
-        if isinstance(beta_model, pd.Series):  # DPR 的情况
+        if isinstance(beta_model, pd.Series):  # DPR 
             for snp in beta_model.index:
                 if snp in trainX.columns:
                     feature_index = trainX.columns.get_loc(snp)
                     beta[feature_index] = beta_model[snp]
-        else:  # LassoCV 或 ElasticNetCV 的情况
+        else:  # LassoCV  ElasticNetCV 
             for i, feature_name in enumerate(selected_features):
                 feature_index = trainX.columns.get_loc(feature_name)
                 beta[feature_index] = beta_model[i]

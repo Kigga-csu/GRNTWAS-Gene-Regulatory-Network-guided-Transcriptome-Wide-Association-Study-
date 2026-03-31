@@ -124,16 +124,12 @@ def empty_df_handler(func):
 	return wrapper
 	
 def call_vcfpy_header(path, out='tuple', rename={}):
-	# 创建用于重命名列的字典
-	# VCF文件的第一列预计会被解析为#CHROM；自动将其添加到重命名列表中
 	rename = {**{'#CHROM': 'CHROM'}, **rename}
 
-	# 打开VCF文件
 	vcf_file = vcfpy.Reader.from_path(path)
 
 	header = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT'] + vcf_file.header.samples.names
 	# CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT
-	# 根据输出类型返回结果
 	if out == 'tuple':
 		return tuple(header)
 	elif out == 'list':
@@ -446,116 +442,18 @@ def filter_other_line(line: bytes, col_inds):
 ########################################
 #########replace read_tabix#############
 ########################################
-'''
-def read_vcf(start, end, sampleID, chrm, path, file_cols, col_inds, cols, dtype, genofile_type=None, data_format=None, target_ind=5, target=None, weight_threshold=0, raise_error=True, **kwargs):
-	# 打开VCF文件
-	vcf_file = vcfpy.Reader.from_path(path)
-
-	# 设置过滤函数
-	if genofile_type == 'vcf':
-		bformat = str.encode(data_format)
-		filter_line = functools.partial(filter_vcf_line, bformat=bformat, col_inds=col_inds,
-										split_multi_GT=data_format == 'GT')
-	elif genofile_type == 'weight':
-		btarget = str.encode(target)
-		filter_line = functools.partial(filter_weight_line, btarget=btarget, target_ind=target_ind, col_inds=col_inds)
-	elif genofile_type == 'bgw_weight':
-		btarget = b'0'
-		filter_line = functools.partial(filter_weight_line, btarget=btarget, target_ind=target_ind, col_inds=col_inds)
-	else:
-		filter_line = functools.partial(filter_other_line, col_inds=col_inds)
-
-	# 初始化字节数组
-	proc_out = bytearray()
-
-	# 遍历VCF文件中的特定区域
-	for record in vcf_file.fetch(chrm, int(start), int(end)):
-		# 处理每一行的数据
-		line = str(record).encode()
-		proc_out += filter_line(line)
-	if not proc_out and raise_error:
-		print('No tabix data for target.\n')
-		raise NoTargetDataError
-
-	# read data into dataframe
-	df = pd.read_csv(
-		StringIO(proc_out.decode('utf-8')),
-		sep='\t',
-		low_memory=False,
-		header=None,
-		names=cols,
-		dtype=dtype)
-
-	# filter out rows where all sampleID values are nan
-	if len(sampleID):
-		df = df[df[sampleID].count(axis=1) != 0].reset_index(drop=True)
-
-	df = optimize_cols(df)
-
-	# get snpID
-	if (genofile_type != 'weight') or (not 'snpID' in cols):
-		df['snpID'] = get_snpIDs(df)
-
-	# filter out duplicated snpIDs
-	df = df.drop_duplicates(['snpID'], keep='first').reset_index(drop=True)
-
-	# weight file handling
-	if (genofile_type == 'weight'):
-		## figure out a way to handle target ids with decimal places when both files dont necessarily have those
-		# if not np.all(df['TargetID'] == target):
-		# partial_targetids = np.unique(df['TargetID'])
-
-		# VC_TWAS uses ES = b + beta
-		if (not 'ES' in cols):
-			if (('b' in cols) and ('beta' in cols)):
-				df['ES'] = df['b'] + df['beta']
-			if (('PCP' in cols) and ('beta' in cols)):
-				df['ES'] = np.prod(df['PCP'], df['beta'])
-
-		if weight_threshold:
-			# filter out weights below threshold
-			df = df[operator.gt(np.abs(df['ES']), weight_threshold)].reset_index(drop=True)
-
-			if df.empty and raise_error:
-				print('No test SNPs with cis-eQTL weights with magnitude that exceeds specified weight threshold for TargetID: ' + target + '.\n')
-				raise NoTargetDataError
-
-	# remove rows with non-valid GT values; ie those from multiallelic rows
-	if (data_format == 'GT'):
-		valid_GT = ['.|.', '0|0', '0|1', '1|0', '1|1',
-		'./.', '0/0', '0/1', '1/0', '1/1']
-		df = df[np.all(df[sampleID].isin(valid_GT), axis=1)].reset_index(drop=True)
-
-	# process dosage, vcf file sample df
-	if (data_format == 'GT') or (data_format == 'DS'):
-		df = reformat_sample_vals(df, data_format, sampleID)
-
-	if df.empty and raise_error:
-		print('No valid tabix data for target.\n')
-		raise NoTargetDataError
-
-	return df
-'''
 def read_tabix_revise_commond(tabix_commands, sampleID, chrm, path, file_cols, col_inds, cols, dtype, genofile_type=None, data_format=None, target_ind=5, target=None, weight_threshold=0, raise_error=True, **kwargs):
-        '''
-            col_inds: 列索引，用于选择某些特定列
-            cols: 列名，用于生成最终的数据框架
-        '''
-        # 将命令拆分为列表形式
         command = ['tabix', path] + tabix_commands.split()
     
-        # 打印命令
         print(' '.join(command))
     
-        # 使用 subprocess.run 运行命令
         proc = subprocess.run(
-            command,  # 直接传递命令列表
+            command,  # 
             stdout=subprocess.PIPE,
-            text=True,  # 确保输出为文本格式 (utf-8)
-            check=True  # 如果子进程失败，抛出异常
+            text=True,  #  (utf-8)
+            check=True  # ，
         )
 
-        # 如果输出为空且启用了错误抛出，处理它
         if not proc.stdout and raise_error:
             print('No tabix data for target.\n')
             return False
@@ -632,10 +530,6 @@ def read_tabix_revise_commond(tabix_commands, sampleID, chrm, path, file_cols, c
         return df
 
 def read_tabix_revise(start, end, sampleID, chrm, path, file_cols, col_inds, cols, dtype, genofile_type=None, data_format=None, target_ind=5, target=None, weight_threshold=0, raise_error=True, **kwargs):
-	'''
-	    col_inds: 列索引，用于选择某些特定列
-	    cols: 列名，用于生成最终的数据框架
-	    '''
 	print("testttttttttttttttttttt")
 	# subprocess command
 	command_str = ' '.join(['tabix', path, 'chr' + chrm + ':' + start + '-' + end])
@@ -729,7 +623,6 @@ def read_tabix_revise(start, end, sampleID, chrm, path, file_cols, col_inds, col
 
 def read_tabix(start, end, sampleID, chrm, path, file_cols, col_inds, cols, dtype, genofile_type=None, data_format=None, target_ind=5, target=None, weight_threshold=0, raise_error=True, **kwargs):
 	####
-	'''####col_inds和cols两个参数的具体定义是什么 怎么处理 #####'''
 	# subprocess command
 	command_str = ' '.join(['tabix', path, chrm + ':' + start + '-' + end])
 
@@ -743,7 +636,6 @@ def read_tabix(start, end, sampleID, chrm, path, file_cols, col_inds, cols, dtyp
 	proc_out = bytearray()
 
 	# set correct filter function by file type
-	'''####col_inds参数在这里使用 #####'''
 	if genofile_type == 'vcf':
 		bformat = str.encode(data_format)
 		filter_line = functools.partial(filter_vcf_line, bformat=bformat, col_inds=col_inds, split_multi_GT=data_format == 'GT')
@@ -771,7 +663,6 @@ def read_tabix(start, end, sampleID, chrm, path, file_cols, col_inds, cols, dtyp
 		return None
 
 	# read data into dataframe
-	'''#这里用上了参数 cols'''
 	df = pd.read_csv(
 		StringIO(proc_out.decode('utf-8')),
 		sep='\t',
@@ -849,23 +740,6 @@ def tabix_query_files(start, end, chrm, geno_path=None, gwas_path=None, w_path=N
 ########################################
 #######replace call_tabix########
 ########################################
-'''
-def call_vcfpy(path, chrm, start, end):
-    # 打开VCF文件
-    vcf_file = vcfpy.Reader.from_path(path)
-
-    # 初始化字节数组
-    proc_out = bytearray()
-
-    # 遍历VCF文件中的特定区域
-    for record in vcf_file.fetch(chrm, int(start), int(end)):
-        # 处理每一行的数据
-        line = str(record).encode()
-        proc_out += line
-
-    return proc_out
-
-'''
 # Call tabix, read in lines into byte array
 def call_tabix(path, chrm, start, end, add_command_str = ''):
 
@@ -904,28 +778,6 @@ def call_tabix(path, chrm, start, end, add_command_str = ''):
 ########################################
 #######replace call_tabix_header########
 ########################################
-'''
-def call_vcfpy_header(path, out='tuple', rename={}):
-	# 创建用于重命名列的字典
-	# VCF文件的第一列预计会被解析为#CHROM；自动将其添加到重命名列表中
-	rename = {**{'#CHROM': 'CHROM'}, **rename}
-
-	# 打开VCF文件
-	vcf_file = vcfpy.Reader.from_path(path)
-
-	header = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT'] + vcf_file.header.samples.names
-	# CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT
-
-	print('\t'.join(header))
-
-	# 根据输出类型返回结果
-	if out == 'tuple':
-		return tuple(header)
-	elif out == 'list':
-		return list(header)
-	else:
-		return pd.DataFrame(header)
-'''
 def call_tabix_header(path, out='tuple', rename={}):
 	# create dictionary for renaming columns
 	# the first column in the vcf file is expected to be parsed as #CHROM;  automatically add that to the rename list
@@ -1203,26 +1055,6 @@ def get_regions_list(snp_ids):
 ########################################
 #######replace call_tabix_regions########
 ########################################
-'''
-def call_vcfpy_regions(path, regs_str, filter_line = lambda x:x ):
-    # 打开VCF文件
-    vcf_file = vcfpy.Reader.from_path(path)
-
-    # 初始化字节数组
-    proc_out = bytearray()
-
-    # 解析区域字符串
-    chrm, positions = regs_str.split(':')
-    start, end = map(int, positions.split('-'))
-
-    # 遍历VCF文件中的特定区域
-    for record in vcf_file.fetch(chrm, start, end):
-        # 处理每一行的数据
-        line = str(record).encode()
-        proc_out += filter_line(line)
-
-    return proc_out
-'''
 def call_tabix_regions(path, regs_str, filter_line = lambda x:x ):
 
 	proc = subprocess.Popen(
@@ -1403,24 +1235,19 @@ def substr_in_strarray(substr, strarray):
 def handle_missing_wsx(df: pd.DataFrame, sampleID, missing_rate, filter=True, op=operator.le):
     df = df.copy()
 
-    # 将-1替换为NaN，以便于使用Pandas的isna()函数
     df[sampleID] = df[sampleID].replace(-1, np.nan)
 
-    # 排除所有样本数据都是-1的行
     df = df[df[sampleID].count(axis=1) > 0].reset_index(drop=True)
     vals = df[sampleID].values
 
-    # 计算每个SNP的缺失率，使用-1的计数
     MissingRate = pd.to_numeric(
         pd.Series(
             (np.count_nonzero(vals == -1, axis=1) / vals.size),
             name='missing_rate'),
         downcast='float')
 
-    # 重新组合DataFrame，排除原始的sampleID列，替换为不包含-1的版本
     df = pd.concat([df.drop(sampleID, axis=1), pd.DataFrame(vals, columns=sampleID), MissingRate], axis=1)
 
-    # 如果filter为True，根据提供的缺失率阈值过滤DataFrame
     if filter:
         df = df[op(df.missing_rate, missing_rate)].reset_index(drop=True)
 
@@ -1460,17 +1287,6 @@ def row_maf_impute(x):
 	return np.append(x, MAF_val)
 
 def calc_maf(df: pd.DataFrame, sampleID, maf, filter=True, op=operator.gt, filter_bid=False):
-	'''df = df.reset_index(drop=True).copy(): 重置DataFrame的索引，并且复制一份df以避免修改原始数据。
-
-vals = df[sampleID].values: 从DataFrame中提取sampleID列的值。
-
-sample_MAF = np.apply_along_axis(row_maf_impute, 1, vals): 应用row_maf_impute函数计算每一行（每个SNP）的MAF，并处理缺失值。这里假设row_maf_impute是一个定义好的函数，用于计算MAF并可能对缺失值进行插补。
-
-df = pd.concat([...]): 将原始的DataFrame（不包含sampleID列）与新计算的MAF列合并为一个新的DataFrame。
-
-if filter:: 如果设置了过滤，使用op函数根据MAF阈值过滤DataFrame。
-
-if filter_bid:: 如果filter_bid为True，还会对1-MAF进行过滤。'''
 	
 	df = df.reset_index(drop=True).copy()
 	vals = df[sampleID].values
