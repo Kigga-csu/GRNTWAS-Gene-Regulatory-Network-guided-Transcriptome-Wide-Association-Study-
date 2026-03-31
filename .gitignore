@@ -1,0 +1,16 @@
+.DS_Store
+.venv/
+.conda_env/
+.conda_pkgs/
+__pycache__/
+*.pyc
+
+# user-requested exclusions
+code/GRN_COP_GSL.py
+code/mutil_process.py
+code/Association_GWAS/
+code/DPR
+
+# private/raw data and outputs
+data/
+result_eqtl_100k_TF_GRN_brainscope/
