@@ -50,7 +50,7 @@ args = parser.parse_args()
 
 
 #sys.path.append(args.TIGAR_dir)
-import TIGARutils as tg # 
+import utils as tg
 
 def get_pval(z):
     return np.format_float_scientific(chi2.sf(z**2, 1), precision=15, exp_digits=0)
@@ -91,12 +91,11 @@ os.makedirs(args.out_dir, exist_ok=True)
 
 print(f" TWAS : {out_twas_path}")
 
-print(
-	**args.__dict__,
-	test_stat_str = 'FUSION and SPrediXcan' if args.test_stat=='both' else args.test_stat,
-    out_twas_path = out_twas_path # 
-    )
-)
+print({
+    **args.__dict__,
+    'test_stat_str': 'FUSION and SPrediXcan' if args.test_stat == 'both' else args.test_stat,
+    'out_twas_path': out_twas_path,
+})
 
 
 print(' GeneID ...')
